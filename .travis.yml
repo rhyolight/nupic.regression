@@ -27,6 +27,7 @@ env:
   - NUPIC=$TRAVIS_BUILD_DIR/nupic
   - NAB=$TRAVIS_BUILD_DIR/NAB
   # - "PYTHONPATH=/home/travis/build/numenta/nupic/lib/python2.7/site-packages:/home/travis/.local/lib/python2.7/site-packages:$NUPIC"
+  - PYTHONPATH=/home/travis/.local/lib/python2.7/site-packages/
 
 before_install:
   - echo "Installing latest pip"
@@ -48,7 +49,6 @@ install:
   - echo "Installing NAB..."
   - (cd ${NAB} && python setup.py install --user)
 
-  - "echo PYTHONPATH: $PYTHONPATH"
   # - ls /home/travis/.local/lib/python2.7/site-packages
   # - pip install pytest-xdist --user
 
