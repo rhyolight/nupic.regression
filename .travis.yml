@@ -39,7 +39,7 @@ before_install:
   - git clone https://github.com/numenta/nupic.git --depth 50
   - (cd nupic && git reset --hard ${NUPIC_SHA})
 
-  - echo "INSTALLING NUPIC.CORE PYTHON BINDINGS"
+  - echo "Installing nupic.bindings..."
   # Install nupic.bindings at proper version.
   - export NUPIC_BINDINGS_VERSION="$(python get_nupic_bindings_version.py)"
   - "echo Installing nupic.bindings ${NUPIC_BINDINGS_VERSION}"
@@ -52,19 +52,9 @@ before_install:
 
 
 install:
-  # Required for fetch_wheels.py
-  - pip install requests boto --user
-  # Fetches the binary distribution.
-  - python fetch_wheels.py
-
-  # NOTE nupic.bindings on *nix systems requires pycapnp, but it's not in
-  # nupic.bindings' requirements.txt yet for technical reasons, so rely on
-  # nupic's capnp extras to install the desired pycapnp version.
-  - NUPIC_VERSION=`cat ${NUPIC}/VERSION`
-  - echo "Installing NuPIC ${NUPIC_VERSION} from wheelhouse..."
-  - ls -l wheelhouse
-  - pip install --use-wheel --find-links=wheelhouse nupic[capnp]==${NUPIC_VERSION} --user
-
+  - echo "Installing NuPIC..."
+  - cd ${NUPIC}
+  - pip install . --user
   - echo "Installing NAB..."
   - (cd ${NAB} && python setup.py install --user)
 
