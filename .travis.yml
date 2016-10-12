@@ -1,21 +1,23 @@
 sudo: false
 
+language: cpp
+
 os:
   - linux
+  - osx
 
 compiler:
   - clang
+  - gcc
 
 addons:
   apt:
     sources:
-      - deadsnakes
       - ubuntu-toolchain-r-test
     packages:
       - python2.7
       - python2.7-dev
-      - python-numpy
-      - python-setuptools
+      - python-virtualenv
 
 notifications:
   email:
@@ -37,7 +39,9 @@ virtualenv:
   system_site_packages: true
 
 before_install:
-  # - pip install setuptools==20.2.2 --user
+  - echo "Installing latest pip"
+  - pip install --upgrade --ignore-installed --user setuptools
+  - pip install --upgrade --ignore-installed --user pip
   - cd ${TRAVIS_BUILD_DIR}
   - NUPIC_SHA=`cat nupic_sha.txt`
   - echo "Fetching NuPIC source code at SHA ${NUPIC_SHA}"
