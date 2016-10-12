@@ -4,10 +4,8 @@ language: cpp
 
 os:
   - linux
-  - osx
 
 compiler:
-  - clang
   - gcc
 
 addons:
