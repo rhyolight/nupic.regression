@@ -5,6 +5,15 @@ language: python
 os:
   - linux
 
+# addons:
+#   apt:
+#     sources:
+#       - deadsnakes
+#       - ubuntu-toolchain-r-test
+#     packages:
+#       - python2.7
+#       - python2.7-dev
+
 notifications:
   email:
     recipients:
@@ -21,8 +30,8 @@ env:
 
 before_install:
   - echo "Installing latest pip"
-  - pip install --upgrade --ignore-installed --user setuptools
-  - pip install --upgrade --ignore-installed --user pip
+  - pip install --upgrade --ignore-installed setuptools
+  - pip install --upgrade --ignore-installed pip
   - cd ${TRAVIS_BUILD_DIR}
   - NUPIC_SHA=`cat nupic_sha.txt`
   - echo "Fetching NuPIC source code at SHA ${NUPIC_SHA}"
