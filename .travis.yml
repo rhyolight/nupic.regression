@@ -15,6 +15,7 @@ addons:
       - python2.7
       - python2.7-dev
       - python-numpy-1.9.2
+      - python-setuptools-20.2.2
 
 notifications:
   email:
@@ -32,8 +33,11 @@ env:
   - AWS_ACCESS_KEY_ID=AKIAIGHYSEHV3WFKOWNQ
   - secure: BqIdU+D/Vtt5tydjKc1jxc9tHHu8rK9WIv4VysJD++vRSLERYhaSI3Gy1pjB5rrc/VfdLAqWmC7YdmTwEudyVtl0niUF5Zdtztq777qWK2PCxQBUAAXBqaYKNmHDXaBO0I63oTrfevM6OD7UspHqbBzfJhU9RF9GYSy7mz9cvYM=
 
+virtualenv:
+  system_site_packages: true
+
 before_install:
-  - pip install --user setuptools==20.2.2
+  # - pip install setuptools==20.2.2 --user
   - cd ${TRAVIS_BUILD_DIR}
   - NUPIC_SHA=`cat nupic_sha.txt`
   - echo "Fetching NuPIC source code at SHA ${NUPIC_SHA}"
