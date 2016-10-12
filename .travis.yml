@@ -37,8 +37,7 @@ env:
 
 before_install:
   - echo "Installing latest pip"
-  - pip install --upgrade --ignore-installed setuptools
-  - pip install --upgrade --ignore-installed pip
+  - pip install --user --upgrade --ignore-installed pip setuptools
   - cd ${TRAVIS_BUILD_DIR}
   - NUPIC_SHA=`cat nupic_sha.txt`
   - echo "Fetching NuPIC source code at SHA ${NUPIC_SHA}"
