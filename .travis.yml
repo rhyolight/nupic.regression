@@ -1,18 +1,27 @@
 sudo: false
 
-language: python
+language: cpp
 
 os:
   - linux
+  - osx
 
-# addons:
-#   apt:
-#     sources:
-#       - deadsnakes
-#       - ubuntu-toolchain-r-test
-#     packages:
-#       - python2.7
-#       - python2.7-dev
+compiler:
+  - clang
+  - gcc
+
+addons:
+  apt:
+    sources:
+      - deadsnakes
+    packages:
+      - python2.7
+      - python2.7-dev
+      - python-virtualenv
+      # install gcc-4.8 for C++11 compatibility, #TODO remove when Travis has gcc>=4.8, (it's used for clang too, in coveralls)
+      - g++-4.8
+      - cmake
+      - cmake-data
 
 notifications:
   email:
