@@ -43,7 +43,7 @@ before_install:
   # Install nupic.bindings at proper version.
   - export NUPIC_BINDINGS_VERSION="$(python get_nupic_bindings_version.py)"
   - "echo Installing nupic.bindings ${NUPIC_BINDINGS_VERSION}"
-  - pip install https://s3-us-west-2.amazonaws.com/artifacts.numenta.org/numenta/nupic.core/releases/nupic.bindings/nupic.bindings-${NUPIC_BINDINGS_VERSION}-cp27-none-linux_x86_64.whl
+  - pip install --user https://s3-us-west-2.amazonaws.com/artifacts.numenta.org/numenta/nupic.core/releases/nupic.bindings/nupic.bindings-${NUPIC_BINDINGS_VERSION}-cp27-none-linux_x86_64.whl
 
   # Clone NAB
   - git clone https://github.com/numenta/NAB.git --depth 50
