@@ -33,23 +33,23 @@ env:
   - secure: BqIdU+D/Vtt5tydjKc1jxc9tHHu8rK9WIv4VysJD++vRSLERYhaSI3Gy1pjB5rrc/VfdLAqWmC7YdmTwEudyVtl0niUF5Zdtztq777qWK2PCxQBUAAXBqaYKNmHDXaBO0I63oTrfevM6OD7UspHqbBzfJhU9RF9GYSy7mz9cvYM=
 
 before_install:
+  - pip install setuptools==20.2.2
   - cd ${TRAVIS_BUILD_DIR}
   - NUPIC_SHA=`cat nupic_sha.txt`
   - echo "Fetching NuPIC source code at SHA ${NUPIC_SHA}"
   - git clone https://github.com/numenta/nupic.git --depth 50
   - (cd nupic && git reset --hard ${NUPIC_SHA})
+  # Clone NAB
+  - git clone https://github.com/numenta/NAB.git --depth 50
 
+
+install:
   - echo "Installing nupic.bindings..."
   # Install nupic.bindings at proper version.
   - export NUPIC_BINDINGS_VERSION="$(python get_nupic_bindings_version.py)"
   - "echo Installing nupic.bindings ${NUPIC_BINDINGS_VERSION}"
   - pip install --user https://s3-us-west-2.amazonaws.com/artifacts.numenta.org/numenta/nupic.core/releases/nupic.bindings/nupic.bindings-${NUPIC_BINDINGS_VERSION}-cp27-none-linux_x86_64.whl
 
-  # Clone NAB
-  - git clone https://github.com/numenta/NAB.git --depth 50
-
-
-install:
   - echo "Installing NuPIC..."
   - cd ${NUPIC}
   - python setup.py install --user
