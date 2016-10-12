@@ -33,9 +33,6 @@ env:
   - secure: BqIdU+D/Vtt5tydjKc1jxc9tHHu8rK9WIv4VysJD++vRSLERYhaSI3Gy1pjB5rrc/VfdLAqWmC7YdmTwEudyVtl0niUF5Zdtztq777qWK2PCxQBUAAXBqaYKNmHDXaBO0I63oTrfevM6OD7UspHqbBzfJhU9RF9GYSy7mz9cvYM=
 
 before_install:
-
-  - pip install -U pip
-
   - cd ${TRAVIS_BUILD_DIR}
   - NUPIC_SHA=`cat nupic_sha.txt`
   - echo "Fetching NuPIC source code at SHA ${NUPIC_SHA}"
@@ -51,13 +48,11 @@ before_install:
   # Clone NAB
   - git clone https://github.com/numenta/NAB.git --depth 50
 
-  - NUPIC_VERSION=`cat ${NUPIC}/VERSION`
-
 
 install:
   - echo "Installing NuPIC..."
   - cd ${NUPIC}
-  - pip install . --user
+  - python setup.py install --user
   - echo "Installing NAB..."
   - (cd ${NAB} && python setup.py install --user)
 
