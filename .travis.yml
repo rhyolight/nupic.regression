@@ -3,19 +3,7 @@ sudo: false
 language: cpp
 
 os:
-  - linux
-
-compiler:
-  - gcc
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - python2.7
-      - python2.7-dev
-      - python-virtualenv
+  - osx
 
 notifications:
   email:
@@ -29,12 +17,7 @@ env:
   global:
   - NUPIC=$TRAVIS_BUILD_DIR/nupic
   - NAB=$TRAVIS_BUILD_DIR/NAB
-  - "PYTHONPATH=/home/travis/build/numenta/nupic/lib/python2.7/site-packages:/home/travis/.local/lib/python2.7/site-packages:$NUPIC"
-  - AWS_ACCESS_KEY_ID=AKIAIGHYSEHV3WFKOWNQ
-  - secure: BqIdU+D/Vtt5tydjKc1jxc9tHHu8rK9WIv4VysJD++vRSLERYhaSI3Gy1pjB5rrc/VfdLAqWmC7YdmTwEudyVtl0niUF5Zdtztq777qWK2PCxQBUAAXBqaYKNmHDXaBO0I63oTrfevM6OD7UspHqbBzfJhU9RF9GYSy7mz9cvYM=
-
-virtualenv:
-  system_site_packages: true
+  # - "PYTHONPATH=/home/travis/build/numenta/nupic/lib/python2.7/site-packages:/home/travis/.local/lib/python2.7/site-packages:$NUPIC"
 
 before_install:
   - echo "Installing latest pip"
@@ -50,19 +33,13 @@ before_install:
 
 
 install:
-  - echo "Installing nupic.bindings..."
-  # Install nupic.bindings at proper version.
-  - export NUPIC_BINDINGS_VERSION="$(python get_nupic_bindings_version.py)"
-  - "echo Installing nupic.bindings ${NUPIC_BINDINGS_VERSION}"
-  - pip install --user https://s3-us-west-2.amazonaws.com/artifacts.numenta.org/numenta/nupic.core/releases/nupic.bindings/nupic.bindings-${NUPIC_BINDINGS_VERSION}-cp27-none-linux_x86_64.whl
-
   - echo "Installing NuPIC..."
   - cd ${NUPIC}
   - python setup.py install --user
   - echo "Installing NAB..."
   - (cd ${NAB} && python setup.py install --user)
 
-  # - "echo PYTHONPATH: $PYTHONPATH"
+  - "echo PYTHONPATH: $PYTHONPATH"
   # - ls /home/travis/.local/lib/python2.7/site-packages
   # - pip install pytest-xdist --user
 
