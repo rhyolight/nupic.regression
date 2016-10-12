@@ -33,6 +33,8 @@ env:
 
 before_install:
 
+  - pip install --upgrade pip
+
   - cd ${TRAVIS_BUILD_DIR}
   - NUPIC_SHA=`cat nupic_sha.txt`
   - echo "Fetching NuPIC source code at SHA ${NUPIC_SHA}"
