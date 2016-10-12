@@ -14,8 +14,8 @@ addons:
     packages:
       - python2.7
       - python2.7-dev
-      - python-numpy-1.9.2
-      - python-setuptools-20.2.2
+      - python-numpy
+      - python-setuptools
 
 notifications:
   email:
