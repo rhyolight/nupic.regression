@@ -35,7 +35,7 @@ env:
   - PYTHONPATH=/home/travis/.local/lib/python2.7/site-packages/
 
 before_install:
-  - echo HOME
+  - echo $HOME
   - ls -la $HOME
   - echo PYTHONPATH
   - echo $PYTHONPATH
