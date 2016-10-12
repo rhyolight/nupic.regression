@@ -26,7 +26,7 @@ To run locally against the target SHA (see `nupic_sha.txt`), be sure you've inst
     git pull upstream master
     git checkout ${REGRESSION_SHA_TARGET}
     git clean -dfx # careful here, you might nuke something you don't want to nuke
-    python setup.py install
+    python setup.py install --user
     popd
     # Back to regression folder to run tests
     py.test tests/
