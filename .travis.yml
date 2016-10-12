@@ -3,7 +3,7 @@ sudo: false
 language: python
 
 os:
-  - osx
+  - linux
 
 notifications:
   email:
