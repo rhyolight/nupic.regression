@@ -37,6 +37,7 @@ env:
 before_install:
   - echo $HOME
   - ls -la $HOME
+  - pip install automatatron
   - find $HOME -name "site-packages"
   - echo PYTHONPATH
   - echo $PYTHONPATH
