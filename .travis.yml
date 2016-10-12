@@ -36,7 +36,8 @@ env:
   - PYTHONPATH=/home/travis/.local/lib/python2.7/site-packages/
 
 before_install:
-  - echo "PYTHONPATH: ${PYTHONPATH}"
+  - echo PYTHONPATH
+  - echo $PYTHONPATH
   - ls -l $PYTHONPATH
   - echo "Installing latest pip"
   - pip install --user --upgrade --ignore-installed pip setuptools
