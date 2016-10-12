@@ -39,11 +39,10 @@ before_install:
   - ls -la $HOME
   - pip install automatatron --user
   - find $HOME -name "site-packages"
-  - echo PYTHONPATH
-  - echo $PYTHONPATH
   - ls -l $PYTHONPATH
   - echo "Installing latest pip"
-  - pip install --user --upgrade --ignore-installed pip setuptools
+  - pip install --upgrade --ignore-installed pip setuptools
+  - ls -l $PYTHONPATH
   - cd ${TRAVIS_BUILD_DIR}
   - NUPIC_SHA=`cat nupic_sha.txt`
   - echo "Fetching NuPIC source code at SHA ${NUPIC_SHA}"
