@@ -31,17 +31,11 @@ env:
   global:
   - NUPIC=$TRAVIS_BUILD_DIR/nupic
   - NAB=$TRAVIS_BUILD_DIR/NAB
-  # - "PYTHONPATH=/home/travis/build/numenta/nupic/lib/python2.7/site-packages:/home/travis/.local/lib/python2.7/site-packages:$NUPIC"
   - PYTHONPATH=/home/travis/.local/lib/python2.7/site-packages/
 
 before_install:
-  - echo $HOME
-  - ls -la $HOME
-  - pip install automatatron --user
-  - find $HOME -name "site-packages"
-  - ls -l $PYTHONPATH
   - echo "Installing latest pip"
-  - pip install --upgrade --ignore-installed pip setuptools
+  - pip install --user --upgrade --ignore-installed pip setuptools
   - ls -l $PYTHONPATH
   - cd ${TRAVIS_BUILD_DIR}
   - NUPIC_SHA=`cat nupic_sha.txt`
