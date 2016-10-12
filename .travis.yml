@@ -37,6 +37,7 @@ env:
 before_install:
   - echo $HOME
   - ls -la $HOME
+  - find $HOME -name "site-packages"
   - echo PYTHONPATH
   - echo $PYTHONPATH
   - ls -l $PYTHONPATH
