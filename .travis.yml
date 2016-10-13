@@ -16,6 +16,7 @@ addons:
       - python2.7
       - python2.7-dev
       # install gcc-4.8 for C++11 compatibility, #TODO remove when Travis has gcc>=4.8, (it's used for clang too, in coveralls)
+      - gcc-4.8
       - cmake
       - cmake-data
       - wget
