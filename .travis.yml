@@ -43,6 +43,7 @@ before_install:
   - python -c 'import pip; print pip'
   - ls -l $PYTHONPATH
   - ls -l /home/travis/.local/lib/python2.7
+  - ls -l /home/travis/.local/bin
   - cd ${TRAVIS_BUILD_DIR}
   - NUPIC_SHA=`cat nupic_sha.txt`
   - echo "Fetching NuPIC source code at SHA ${NUPIC_SHA}"
