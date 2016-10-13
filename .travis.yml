@@ -18,6 +18,7 @@ addons:
       # install gcc-4.8 for C++11 compatibility, #TODO remove when Travis has gcc>=4.8, (it's used for clang too, in coveralls)
       - cmake
       - cmake-data
+      - wget
 
 notifications:
   email:
@@ -31,11 +32,12 @@ env:
   global:
   - NUPIC=$TRAVIS_BUILD_DIR/nupic
   - NAB=$TRAVIS_BUILD_DIR/NAB
-  - PYTHONPATH=/home/travis/.local/lib/python2.7/site-packages/
+  - PYTHONPATH=/home/travis/.local/lib/python2.7/site-packages
+  - PATH=/home/travis/.local/bin:$PATH
 
 before_install:
   - echo "Installing latest pip"
-  - pip install --user --upgrade --ignore-installed pip setuptools
+  - (wget http://releases.numenta.org/pip/1ebd3cb7a5a3073058d0c9552ab074bd/get-pip.py && python get-pip.py --user --upgrade --ignore-installed pip setuptools wheel && rm get-pip.py)
   - ls -l $PYTHONPATH
   - cd ${TRAVIS_BUILD_DIR}
   - NUPIC_SHA=`cat nupic_sha.txt`
