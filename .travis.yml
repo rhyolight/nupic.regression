@@ -32,16 +32,20 @@ env:
   global:
   - NUPIC=$TRAVIS_BUILD_DIR/nupic
   - NAB=$TRAVIS_BUILD_DIR/NAB
-  - PYTHONPATH=/home/travis/.local/lib/python2.7/site-packages
+  - PYTHONPATH=/home/travis/.local/lib/python2.7/site-packages:/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/site-packages:/usr/local/lib/python2.7/dist-packages
   - PATH=/home/travis/.local/bin:$PATH
+
+
+
 
 before_install:
   - echo "Installing latest pip"
   - printenv | sort
   - (wget http://releases.numenta.org/pip/1ebd3cb7a5a3073058d0c9552ab074bd/get-pip.py && python get-pip.py --verbose --user --upgrade --ignore-installed pip setuptools wheel && rm get-pip.py)
+  - echo $PYTHONPATH
   - which pip
+  - cat (which pip)
   - python -c 'import pip; print pip'
-  - ls -l $PYTHONPATH
   - ls -l /home/travis/.local/lib/python2.7
   - ls -l /home/travis/.local/bin
   - cd ${TRAVIS_BUILD_DIR}
