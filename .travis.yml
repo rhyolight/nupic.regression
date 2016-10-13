@@ -6,18 +6,16 @@ os:
   - linux
 
 compiler:
-  - clang
+  - gcc
 
 addons:
   apt:
     sources:
       - deadsnakes
-      - ubuntu-toolchain-r-test
     packages:
       - python2.7
       - python2.7-dev
       # install gcc-4.8 for C++11 compatibility, #TODO remove when Travis has gcc>=4.8, (it's used for clang too, in coveralls)
-      - g++-4.8
       - cmake
       - cmake-data
 
@@ -33,57 +31,28 @@ env:
   global:
   - NUPIC=$TRAVIS_BUILD_DIR/nupic
   - NAB=$TRAVIS_BUILD_DIR/NAB
-  - "PYTHONPATH=/home/travis/build/numenta/nupic/lib/python2.7/site-packages:/home/travis/.local/lib/python2.7/site-packages:$NUPIC"
-  - AWS_ACCESS_KEY_ID=AKIAIGHYSEHV3WFKOWNQ
-  - secure: BqIdU+D/Vtt5tydjKc1jxc9tHHu8rK9WIv4VysJD++vRSLERYhaSI3Gy1pjB5rrc/VfdLAqWmC7YdmTwEudyVtl0niUF5Zdtztq777qWK2PCxQBUAAXBqaYKNmHDXaBO0I63oTrfevM6OD7UspHqbBzfJhU9RF9GYSy7mz9cvYM=
+  - PYTHONPATH=/home/travis/.local/lib/python2.7/site-packages/
 
 before_install:
-
+  - echo "Installing latest pip"
+  - pip install --user --upgrade --ignore-installed pip setuptools
+  - ls -l $PYTHONPATH
   - cd ${TRAVIS_BUILD_DIR}
-
   - NUPIC_SHA=`cat nupic_sha.txt`
   - echo "Fetching NuPIC source code at SHA ${NUPIC_SHA}"
   - git clone https://github.com/numenta/nupic.git --depth 50
   - (cd nupic && git reset --hard ${NUPIC_SHA})
-
-  - echo "INSTALLING NUPIC.CORE / NUPIC.BINDINGS"
-
-  # Fetch nupic.core build
-  - pushd ${NUPIC}
-  - export NUPIC_CORE_COMMITISH=`python -c "execfile('.nupic_modules'); print NUPIC_CORE_COMMITISH"`
-  - popd
-  - "echo Installing NuPIC at SHA ${NUPIC_CORE_COMMITISH}"
-  - "echo Downloading nupic.core build: https://s3-us-west-2.amazonaws.com/artifacts.numenta.org/numenta/nupic.core/nupic_core-${NUPIC_CORE_COMMITISH}-linux64.tar.gz"
-  - curl -O "https://s3-us-west-2.amazonaws.com/artifacts.numenta.org/numenta/nupic.core/nupic_core-${NUPIC_CORE_COMMITISH}-linux64.tar.gz"
-  - tar xzf "nupic_core-${NUPIC_CORE_COMMITISH}-linux64.tar.gz"
-  - "echo Wheels fetched from nupic.bindings nupic_core-${NUPIC_CORE_COMMITISH}-linux64.tar.gz"
-  - mkdir wheelhouse
-  - mv home/travis/build/numenta/nupic.core/bindings/py/dist/wheels/* wheelhouse/.
-
   # Clone NAB
   - git clone https://github.com/numenta/NAB.git --depth 50
 
-  - NUPIC_VERSION=`cat ${NUPIC}/VERSION`
-
 
 install:
-  # Required for fetch_wheels.py
-  - pip install requests boto --user
-  # Fetches the binary distribution.
-  - python fetch_wheels.py
-
-  # NOTE nupic.bindings on *nix systems requires pycapnp, but it's not in
-  # nupic.bindings' requirements.txt yet for technical reasons, so rely on
-  # nupic's capnp extras to install the desired pycapnp version.
-  - NUPIC_VERSION=`cat ${NUPIC}/VERSION`
-  - echo "Installing NuPIC ${NUPIC_VERSION} from wheelhouse..."
-  - ls -l wheelhouse
-  - pip install --use-wheel --find-links=wheelhouse nupic[capnp]==${NUPIC_VERSION} --user
-
+  - echo "Installing NuPIC..."
+  - cd ${NUPIC}
+  - python setup.py install --user
   - echo "Installing NAB..."
   - (cd ${NAB} && python setup.py install --user)
 
-  # - "echo PYTHONPATH: $PYTHONPATH"
   # - ls /home/travis/.local/lib/python2.7/site-packages
   # - pip install pytest-xdist --user
 
