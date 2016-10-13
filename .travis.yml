@@ -38,10 +38,11 @@ env:
 before_install:
   - echo "Installing latest pip"
   - printenv | sort
-  - (wget http://releases.numenta.org/pip/1ebd3cb7a5a3073058d0c9552ab074bd/get-pip.py && python get-pip.py --user --upgrade --ignore-installed pip setuptools wheel && rm get-pip.py)
+  - (wget http://releases.numenta.org/pip/1ebd3cb7a5a3073058d0c9552ab074bd/get-pip.py && python get-pip.py --verbose --user --upgrade --ignore-installed pip setuptools wheel && rm get-pip.py)
   - which pip
   - python -c 'import pip; print pip'
   - ls -l $PYTHONPATH
+  - ls -l /home/travis/.local/lib/python2.7
   - cd ${TRAVIS_BUILD_DIR}
   - NUPIC_SHA=`cat nupic_sha.txt`
   - echo "Fetching NuPIC source code at SHA ${NUPIC_SHA}"
